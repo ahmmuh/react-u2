@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 function Login(props) {
-  const [routeState, setRoute] = useState();
   const [toggle, setToggle] = useState("false");
   const history = useHistory();
 

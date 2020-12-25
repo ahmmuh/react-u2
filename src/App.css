@@ -152,3 +152,30 @@ body {
   background-repeat: blue;
   color: blue;
 }
+
+.user-container {
+  background-color: rgb(255, 255, 255);
+  width: 360px;
+  border: 1px solid #222;
+  margin: 10px auto;
+  padding: 10px;
+  box-shadow: 3px 3px 4px #222;
+}
+.user-container .user img {
+  width: 100%;
+}
+
+.user-container .user button {
+  width: 120px;
+  height: 40px;
+  background-color: rgb(23, 116, 238);
+  cursor: pointer;
+  margin-top: 10px;
+  color: white;
+  font-size: 16px;
+  padding: 6px;
+}
+.address {
+  padding: 10px;
+  line-height: 2;
+}

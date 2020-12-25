@@ -15,11 +15,21 @@ class App extends Component {
         <div className="App">
           <Menu />
           <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/users" component={UserComponents} />
+            {/* <Route path="/users" component={UserComponents} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/register" component={Register} />
-            <Route path="/user/:id" component={SingelUser} />
+            <Route path="/user/:id" component={SingelUser} /> */}
+            {/* <Route path="/" exact component={Login} /> */}
+            <Route path="/" render={() => <Login />} exact />
+            <Route path="/users" render={() => <UserComponents />} />
+            <Route path="/dashboard" render={() => <Dashboard />} />
+            <Route path="/register" render={() => <Register />} />
+            <Route
+              path="/user/:id"
+              render={(props) => (
+                <SingelUser {...props} key={props.location.key} />
+              )}
+            />
           </Switch>
         </div>
       </Router>

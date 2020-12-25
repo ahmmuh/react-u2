@@ -1,102 +1,93 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import UserComponents from "./UserComponents";
-import Login from "./Login";
-import Register from "./Register";
+// import api from "../api.json";
+import Loading from "./Loading";
+function Dashboard() {
+  const [users, setUser] = useState();
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
 
-class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: [],
-      email: "",
-      name: [""],
-      userName: "",
-      inputValue: [""],
-      login: true,
-    };
-  }
+  const [state, setChange] = useState({
+    email: "",
+    name: [""],
+    userName: "",
+    inputValue: [""],
+    login: true,
+    users: [],
+  });
+  const name = "Elvin";
+  console.log(name);
 
-  componentDidMount() {
-    const url = "https://jsonplaceholder.typicode.com/users";
-    fetch(url)
+  const getUsers = () => {
+    fetch("https://jsonplaceholder.typicode.com/users", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
       .then((response) => response.json())
-      .then((data) =>
-        this.setState({
-          users: data,
-        })
-      );
-  }
+      .then((data) => setData({ data }));
+  };
 
-  addUser = (event) => {
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const addUser = (event) => {
     event.preventDefault();
-    let user = this.state.users.concat({
-      name: this.state.name,
-      email: this.state.email,
-      username: this.state.userName,
+    const newUser = state.users.concat({
+      name: state.name,
+      email: state.email,
+      username: state.userName,
     });
-    this.setState({
-      users: user,
-    });
-
-    console.log(this.state.users);
+    setUser({ users: newUser });
+    console.log(newUser);
+    // this.setUser(newUser);
   };
 
-  nameChangeHandler = (event) => {
-    this.setState({
-      name: event.target.value,
-      // email: event.target.value,
-      //  userName: event.target.value,
-    });
-  };
-  emailChangeHandler = (event) => {
-    this.setState({
-      // name: event.target.value,
-      email: event.target.value,
-      // userName: event.target.value,
+  const handleChange = (event) => {
+    const value = event.target.value;
+    console.log("input value changed", event.target.value);
+    setChange({
+      ...state,
+      [event.target.name]: value,
     });
   };
 
-  userChangeHandler = (event) => {
-    this.setState({
-      // name: event.target.value,
-      // email: event.target.value,
-      userName: event.target.value,
-    });
-  };
-  render() {
-    const newUsers = this.state.users;
-    console.log(newUsers);
-    return (
-      <div className="dashboard dashboard-container">
-        <div>
-          <UserComponents users={this.state.users} />
-        </div>
-        <div className="register-container">
-          <form>
-            <input
-              type="text"
-              placeholder="name"
-              onChange={this.nameChangeHandler}
-              name={this.state.name}
-            />
-            <input
-              type="text"
-              placeholder="username"
-              onChange={this.userChangeHandler}
-              username={this.state.userName}
-            />
-            <input
-              type="email"
-              placeholder="email"
-              onChange={this.emailChangeHandler}
-              email={this.state.email}
-            />
-            <input type="submit" value="Add" onClick={this.addUser} />
-          </form>
-        </div>
+  return (
+    <div className="dashboard dashboard-container">
+      <div>
+        {" "}
+        <UserComponents users={data} />{" "}
       </div>
-    );
-  }
+      <div className="register-container">
+        <form>
+          <input
+            type="text"
+            placeholder="name"
+            name="name"
+            onChange={handleChange}
+            value={state.name}
+          />
+          <input
+            type="text"
+            placeholder="username"
+            name="userName"
+            onChange={handleChange}
+            value={state.userName}
+          />
+          <input
+            type="email"
+            placeholder="email"
+            name="email"
+            onChange={handleChange}
+            value={state.email}
+          />
+          <input type="submit" value="Add" onClick={addUser} />
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default Dashboard;

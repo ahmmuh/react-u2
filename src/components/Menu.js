@@ -16,14 +16,10 @@ function Menu() {
             Dashboard
           </NavLink>
         </li>
+
         <li>
-          <NavLink activeClassName="is-active" to="/users">
+          <NavLink activeClassName="is-active" to="/user">
             User
-          </NavLink>
-        </li>
-        <li>
-          <NavLink activeClassName="is-active" to="/user/:2">
-            User singel
           </NavLink>
         </li>
       </ul>
