@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 function UserComponents(props) {
   const users = props.users;
-  console.log(users);
-
   const [isColor, setColor] = useState("false");
 
   const toggleColor = () => {
@@ -13,7 +11,7 @@ function UserComponents(props) {
 
   let userList;
   if (users) {
-    userList = users.data.map((user, id) => {
+    userList = users.map((user, id) => {
       return (
         <li key={user.id}>
           <Link
