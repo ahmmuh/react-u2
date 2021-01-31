@@ -1,34 +1,32 @@
 import React, { useState, useEffect } from "react";
 import UserComponents from "./UserComponents";
 function Dashboard() {
-  // const [data, setData] = useState([]);
-
   const [data, setUser] = useState({
     name: "",
     email: "",
     username: "",
+    users: [],
   });
 
   const handleChange = (event) => {
     const value = event.target.value;
-    console.log("input value changed", event.target.value);
+    // console.log("input value changed", event.target.value);
     setUser({
       ...data,
       [event.target.name]: value,
     });
   };
 
-  let userObject = {
-    name: data.name,
-    email: data.email,
-    dataname: data.username,
-  };
+  // let userObject = {
+  //   name: data.name,
+  //   email: data.email,
+  //   username: data.username,
+  // };
   let newUSers = [];
-  newUSers.push(userObject);
   const handleSubmit = (event) => {
     event.preventDefault();
-    setUser({ ...data, userObject });
-    console.log(userObject);
+    setUser({ data: newUSers });
+    console.log(newUSers);
   };
 
   useEffect(() => {
@@ -51,7 +49,7 @@ function Dashboard() {
           <input
             type="text"
             placeholder="name"
-            value={userObject.name || ""}
+            value={data.name || ""}
             name="name"
             onChange={handleChange}
           />
@@ -59,14 +57,14 @@ function Dashboard() {
             type="text"
             placeholder="username"
             name="username"
-            value={userObject.username || ""}
+            value={data.username || ""}
             onChange={handleChange}
           />
           <input
             type="email"
             placeholder="email"
             name="email"
-            value={userObject.email || ""}
+            value={data.email || ""}
             onChange={handleChange}
           />
           <input type="submit" value="Add" onClick={handleSubmit} />
